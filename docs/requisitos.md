@@ -19,4 +19,4 @@
     - Tipo de acesso
     - Valor do acesso
     - Valor do contratante
-    - Total apurado pelo contratante
+    - Total apurado pelo
