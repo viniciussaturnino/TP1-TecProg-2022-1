@@ -18,7 +18,7 @@ class TestCaseParkingLot(TestCase):
             contractor_percentage_revenue="1"
         )
 
-        self.parking_lot = ParkingLot(parking_lot=payload)
+        self.parking_lot = ParkingLot()
 
         self.assertIsInstance(self.parking_lot, ParkingLot)
         self.assertEqual(self.parking_lot.__dict__, payload)
