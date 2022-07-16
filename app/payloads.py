@@ -15,10 +15,10 @@ class ParkingLot:
         self.contractor_percentage_revenue = payload.get('contractor_percentage_revenue')
 
 class ParkingLotAccess:
-    def __init__(self):
-        self.license_plate = 'ABC1D23'
-        self.checkin = '12:30',
-        self.checkout = '14:45'
+    def __init__(self, payload: dict):
+        self.license_plate = payload.get('license_plate')
+        self.checkin = payload.get('checkin')
+        self.checkout = payload.get('checkout')
 
 class ParkingSystem:
     def __init__(self):
