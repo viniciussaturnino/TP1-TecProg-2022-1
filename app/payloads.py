@@ -1,10 +1,3 @@
-class ParkingSystem:
-    def __init__(self):
-        self.parking_lots = []
-
-    def registerParkingLot(self, parking_lot):
-        self.parking_lots.append(parking_lot)
-
 class ParkingLot:
     def __init__(self, payload: dict):
         self.name = payload.get('name')
@@ -23,5 +16,17 @@ class ParkingLot:
 
 class ParkingLotAccess:
     def __init__(self):
-        self.checkin = '',
-        self.checkout = ''
+        self.license_plate = 'ABC1D23'
+        self.checkin = '12:30',
+        self.checkout = '14:45'
+
+class ParkingSystem:
+    def __init__(self):
+        self.parking_lots = []
+        self.parking_accesses = []
+
+    def register_parking_lot(self, parking_lot: ParkingLot):
+        self.parking_lots.append(parking_lot)
+
+    def register_parking_access(self, access: ParkingLotAccess):
+        self.parking_accesses.append(access)

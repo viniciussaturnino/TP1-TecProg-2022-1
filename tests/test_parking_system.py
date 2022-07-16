@@ -1,13 +1,13 @@
 from unittest import TestCase
 from app.payloads import ParkingLot
-from app.payloads import ParkingSystem
+from app.payloads import ParkingSystem, ParkingLotAccess
 
 
 class TestCaseParkingLotSystem(TestCase):
     def setUp(self):
        self.parking_lot_system = ParkingSystem()
 
-    def test_register_parking_lot(self):
+    def test_register_parking_lot(self) -> None:
         payload = dict(
             name = "Estac. 1",
             fraction_value = 30,
@@ -24,6 +24,13 @@ class TestCaseParkingLotSystem(TestCase):
             contractor_percentage_revenue = 50
         )
         parking_lot = ParkingLot(payload=payload)
-        self.parking_lot_system.registerParkingLot(parking_lot=parking_lot)
+        self.parking_lot_system.register_parking_lot(parking_lot=parking_lot)
         self.assertIsInstance(parking_lot, ParkingLot)
         self.assertEqual(len(self.parking_lot_system.parking_lots), 1)
+
+    def test_register_access(self) -> None:
+        parking_access = ParkingLotAccess()
+
+        self.parking_lot_system.register_parking_access(access=parking_access)
+        self.assertIsInstance(parking_access, ParkingLotAccess)
+        self.assertEqual(len(self.parking_lot_system.parking_accesses), 1)
