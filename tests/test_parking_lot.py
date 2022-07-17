@@ -1,6 +1,7 @@
 import pytest
 from unittest import TestCase
 from app.payloads import ParkingLot
+
 @pytest.mark.parametrize("parking_lot_payload", [
     dict(
         name = "Estac. 1",
