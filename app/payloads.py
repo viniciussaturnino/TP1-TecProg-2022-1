@@ -13,14 +13,14 @@ class ParkingLot:
         self.closing_hour = payload.get('closing_hour')
         self.capacity = payload.get('capacity')
         self.contractor_percentage_revenue = payload.get('contractor_percentage_revenue')
-        self.parking_access = None
+        self.parking_accesses = []
     
     def register_parking_access(self, parking_access: dict) -> None:
-        if(self.parking_access != None):
-            return [self.parking_access, parking_access]
+        self.parking_accesses.append(parking_access)
+        return self.parking_accesses
 
-        self.parking_access = parking_access
-        return self.parking_access
+    def get_parking_accesses(self, ):
+        return self.parking_accesses
 
 class ParkingSystem:
     def __init__(self):
