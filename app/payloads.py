@@ -16,11 +16,16 @@ class ParkingLot:
         self.parking_accesses = []
     
     def register_parking_access(self, parking_access: dict) -> None:
+        parking_access['price'] = 60
+
         self.parking_accesses.append(parking_access)
         return self.parking_accesses
 
     def get_parking_accesses(self, ):
         return self.parking_accesses
+    
+    def get_parking_access_price(parking_access: dict):
+        return 60
 
 class ParkingSystem:
     def __init__(self):
