@@ -1,7 +1,6 @@
-from datetime import datetime, timedelta
 from unittest import TestCase
 from app.payloads import ParkingLot
-from app.payloads import ParkingSystem, ParkingLotAccess
+from app.payloads import ParkingSystem
 
 
 class TestCaseParkingLotSystem(TestCase):
@@ -29,17 +28,3 @@ class TestCaseParkingLotSystem(TestCase):
         self.parking_lot_system.register_parking_lot(parking_lot=parking_lot)
         self.assertIsInstance(parking_lot, ParkingLot)
         self.assertEqual(len(self.parking_lot_system.parking_lots), 1)
-
-    def test_register_access(self) -> None:
-        checkin = datetime.now()
-        checkout = checkin + timedelta(hours=2)
-        payload = dict(
-            license_plate="ABC1D23",
-            checkin=checkin.strftime("%m/%d/%Y, %H:%M:%S"),
-            checkout=checkout.strftime("%m/%d/%Y, %H:%M:%S")
-        )
-        parking_access = ParkingLotAccess(payload=payload)
-
-        self.parking_lot_system.register_parking_access(access=parking_access)
-        self.assertIsInstance(parking_access, ParkingLotAccess)
-        self.assertEqual(len(self.parking_lot_system.parking_accesses), 1)

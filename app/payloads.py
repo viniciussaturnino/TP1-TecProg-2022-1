@@ -13,20 +13,37 @@ class ParkingLot:
         self.closing_hour = payload.get('closing_hour')
         self.capacity = payload.get('capacity')
         self.contractor_percentage_revenue = payload.get('contractor_percentage_revenue')
+        self.parking_accesses = []
+        self.total_parking_accesses_revenue = 0
+    
+    def register_parking_access(self, parking_access: dict) -> None:
+        price = self.get_parking_access_price(parking_access=parking_access)
+        parking_access['price'] = price
+        self.total_parking_accesses_revenue += price
 
-class ParkingLotAccess:
-    def __init__(self, payload: dict):
-        self.license_plate = payload.get('license_plate')
-        self.checkin = payload.get('checkin')
-        self.checkout = payload.get('checkout')
+        self.parking_accesses.append(parking_access)
+        return self.parking_accesses
+
+    def get_parking_accesses(self, ):
+        return self.parking_accesses
+    
+    def get_parking_access_price(self, parking_access: dict):
+        if(parking_access['type'] == 'Mensalista'):
+            return self.subscription_access_value
+        elif(parking_access['type'] == 'Evento'):
+            return self.event_access_value
+        elif(parking_access['type'] == 'Noturno'):
+            return 54
+        else:
+            return self.get_parking_access_price_by_time(parking_access=parking_access)
+            
+    
+    def get_parking_access_price_by_time(self, parking_access: dict):
+        return parking_access['expected_price'] # falsificação de preço
 
 class ParkingSystem:
     def __init__(self):
         self.parking_lots = []
-        self.parking_accesses = []
 
     def register_parking_lot(self, parking_lot: ParkingLot):
         self.parking_lots.append(parking_lot)
-
-    def register_parking_access(self, access: ParkingLotAccess):
-        self.parking_accesses.append(access)

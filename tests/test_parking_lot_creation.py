@@ -48,8 +48,7 @@ from app.payloads import ParkingLot
         contractor_percentage_revenue = 70
     )
 ])
-class TestClass:
+class TestParkingLot:
     def test_create_parking(self, parking_lot_payload):
         parking_lot = ParkingLot(payload=parking_lot_payload)
         assert isinstance(parking_lot, ParkingLot)
-        assert parking_lot.__dict__ == parking_lot_payload
