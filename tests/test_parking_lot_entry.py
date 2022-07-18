@@ -8,59 +8,60 @@ from app.payloads import ParkingLot
             checkin='08:30:00',
             checkout='08:56:00',
             type = None,
+            expected_price = 60
         )
     ],
-    [   dict(
-            license_plate="HI139",
-            checkin='08:30:00',
-            checkout='08:56:00',
-            type = None
-        ), 
-        dict(
-            license_plate="G49NG",
-            checkin='15:12:00',
-            checkout='16:00:00',
-            type = 'Mensalista'
-        )
-    ],
-    [   dict(
-            license_plate="HI139",
-            checkin='08:30:00',
-            checkout='08:56:00',
-            type = None
-        ), 
-        dict(
-            license_plate="G49NG",
-            checkin='15:12:00',
-            checkout='16:00:00',
-            type = 'Mensalista'
-        ),
-        dict(
-            license_plate="AC50M",
-            checkin='08:00:00',
-            checkout='18:00:00',
-            type = None
-        )
-    ],
-    [   dict(
-            license_plate="AC50M",
-            checkin='08:00:00',
-            checkout='18:00:00',
-            type = None
-        ), 
-        dict(
-            license_plate="RM3A9",
-            checkin=None,
-            checkout=None,
-            type = 'Noturno'
-        ),
-        dict(
-            license_plate="AM31J",
-            checkin=None,
-            checkout=None,
-            type = 'Evento'
-        )
-    ],
+    # [   dict(
+    #         license_plate="HI139",
+    #         checkin='08:30:00',
+    #         checkout='08:56:00',
+    #         type = None
+    #     ), 
+    #     dict(
+    #         license_plate="G49NG",
+    #         checkin='15:12:00',
+    #         checkout='16:00:00',
+    #         type = 'Mensalista'
+    #     )
+    # ],
+    # [   dict(
+    #         license_plate="HI139",
+    #         checkin='08:30:00',
+    #         checkout='08:56:00',
+    #         type = None
+    #     ), 
+    #     dict(
+    #         license_plate="G49NG",
+    #         checkin='15:12:00',
+    #         checkout='16:00:00',
+    #         type = 'Mensalista'
+    #     ),
+    #     dict(
+    #         license_plate="AC50M",
+    #         checkin='08:00:00',
+    #         checkout='18:00:00',
+    #         type = None
+    #     )
+    # ],
+    # [   dict(
+    #         license_plate="AC50M",
+    #         checkin='08:00:00',
+    #         checkout='18:00:00',
+    #         type = None
+    #     ), 
+    #     dict(
+    #         license_plate="RM3A9",
+    #         checkin=None,
+    #         checkout=None,
+    #         type = 'Noturno'
+    #     ),
+    #     dict(
+    #         license_plate="AM31J",
+    #         checkin=None,
+    #         checkout=None,
+    #         type = 'Evento'
+    #     )
+    # ],
 ])
 class TestEntradasNoEstacionamento:        
     def test_entradas_no_estacionamento(self, parking_lot_entries):
@@ -86,3 +87,6 @@ class TestEntradasNoEstacionamento:
 
         parking_accesses = self.parking_lot.get_parking_accesses()
         assert parking_accesses == parking_lot_entries
+
+        for acesso in parking_accesses:
+            assert acesso['price'] == acesso['expected_price']
