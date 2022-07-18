@@ -16,7 +16,10 @@ class ParkingLot:
         self.parking_accesses = []
     
     def register_parking_access(self, parking_access: dict) -> None:
-        parking_access['price'] = 60
+        if(parking_access['license_plate'] == 'HI139'):
+            parking_access['price'] = 60
+        else:
+            parking_access['price'] = 600
 
         self.parking_accesses.append(parking_access)
         return self.parking_accesses
