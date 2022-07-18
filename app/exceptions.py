@@ -3,35 +3,35 @@ class DescricaoEmBrancoException(Exception):
     blank_fields = []
     
     if type == 'acesso': # Dados em branco no fluxo de acesso
-      if not payload.license_plate:
+      if not 'license_plate' in payload:
         blank_fields.append('placa do carro')
-      if not payload.checkin:
+      if not 'checkin' in payload:
         blank_fields.append('hora de entrada')
-      if not payload.checkout:
+      if not 'checkout' in payload:
         blank_fields.append('hora de saída')
     
     elif type == 'estacionamento': # Dados em branco no cadastro de estacionamento
-      if not payload.name:
+      if not 'name' in payload:
         blank_fields.append('nome do estacionamento')
-      if not payload.opening_hour or not payload.closing_hour:
+      if not 'opening_hour' in payload or not 'closing_hour' in payload:
         blank_fields.append('horário de funcionamento')
-      if not payload.fraction_value:
+      if not 'fraction_value' in payload:
         blank_fields.append('valor fração')
-      if not payload.fulltime_value:
+      if not 'fulltime_value' in payload:
         blank_fields.append('valor hora cheia')
-      if not payload.daily_value_daytime:
+      if not 'value_daytime' in payload:
         blank_fields.append('valor diária diurna')
-      if not payload.daily_value_overnight:
+      if not 'daily_value_overnight' in payload:
         blank_fields.append('valor diária noturna')
-      if not payload.subscription_access_value:
+      if not 'subscription_access_value' in payload:
         blank_fields.append('valor acesso mensalista')
-      if not payload.event_access_value:
+      if not 'event_access_value' in payload:
         blank_fields.append('valor acesso evento')
-      if not payload.daily_overnight_initial_hour or not payload.daily_overnight_end_hour:
+      if not 'daily_overnight_initial_hour' in payload or not 'daily_overnight_end_hour' in payload:
         blank_fields.append('horário da diária noturna')
-      if not payload.contractor_percentage_revenue:
+      if not 'contractor_percentage_revenue' in payload:
         blank_fields.append('valor da porcentagem do contratante')
-      if not payload.capacity:
+      if not 'capacity' in payload:
         blank_fields.append('capacidade do estacionamento')
 
     self.message = message
