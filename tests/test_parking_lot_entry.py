@@ -7,33 +7,58 @@ from app.payloads import ParkingLot
             license_plate="HI139",
             checkin='08:30:00',
             checkout='08:56:00',
+            type = None,
         )
     ],
     [   dict(
             license_plate="HI139",
             checkin='08:30:00',
-            checkout='08:56:00'
+            checkout='08:56:00',
+            type = None
         ), 
         dict(
             license_plate="G49NG",
             checkin='15:12:00',
-            checkout='16:00:00'
+            checkout='16:00:00',
+            type = 'Mensalista'
         )
     ],
     [   dict(
             license_plate="HI139",
             checkin='08:30:00',
-            checkout='08:56:00'
+            checkout='08:56:00',
+            type = None
         ), 
         dict(
             license_plate="G49NG",
             checkin='15:12:00',
-            checkout='16:00:00'
+            checkout='16:00:00',
+            type = 'Mensalista'
         ),
         dict(
             license_plate="AC50M",
             checkin='08:00:00',
-            checkout='18:00:00'
+            checkout='18:00:00',
+            type = None
+        )
+    ],
+    [   dict(
+            license_plate="AC50M",
+            checkin='08:00:00',
+            checkout='18:00:00',
+            type = None
+        ), 
+        dict(
+            license_plate="RM3A9",
+            checkin=None,
+            checkout=None,
+            type = 'Noturno'
+        ),
+        dict(
+            license_plate="AM31J",
+            checkin=None,
+            checkout=None,
+            type = 'Evento'
         )
     ],
 ])
