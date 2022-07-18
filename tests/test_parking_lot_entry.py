@@ -26,44 +26,50 @@ from app.payloads import ParkingLot
             expected_price = 600
         )
     ],
-    # [   dict(
-    #         license_plate="HI139",
-    #         checkin='08:30:00',
-    #         checkout='08:56:00',
-    #         type = None
-    #     ), 
-    #     dict(
-    #         license_plate="G49NG",
-    #         checkin=None,
-    #         checkout=None,
-    #         type = 'Mensalista'
-    #     ),
-    #     dict(
-    #         license_plate="AC50M",
-    #         checkin='08:00:00',
-    #         checkout='18:00:00',
-    #         type = None
-    #     )
-    # ],
-    # [   dict(
-    #         license_plate="AC50M",
-    #         checkin='08:00:00',
-    #         checkout='18:00:00',
-    #         type = None
-    #     ), 
-    #     dict(
-    #         license_plate="RM3A9",
-    #         checkin=None,
-    #         checkout=None,
-    #         type = 'Noturno'
-    #     ),
-    #     dict(
-    #         license_plate="AM31J",
-    #         checkin=None,
-    #         checkout=None,
-    #         type = 'Evento'
-    #     )
-    # ],
+    [   dict(
+            license_plate="HI139",
+            checkin='08:30:00',
+            checkout='08:56:00',
+            type = None,
+            expected_price = 60
+        ), 
+        dict(
+            license_plate="G49NG",
+            checkin=None,
+            checkout=None,
+            type = 'Mensalista',
+            expected_price = 600
+        ),
+        dict(
+            license_plate="AC50M",
+            checkin='08:00:00',
+            checkout='18:00:00',
+            type = None,
+            expected_price = 120
+        )
+    ],
+    [   dict(
+            license_plate="AC50M",
+            checkin='08:00:00',
+            checkout='18:00:00',
+            type = None,
+            expected_price = 120
+        ), 
+        dict(
+            license_plate="RM3A9",
+            checkin=None,
+            checkout=None,
+            type = 'Noturno',
+            expected_price = 54
+        ),
+        dict(
+            license_plate="AM31J",
+            checkin=None,
+            checkout=None,
+            type = 'Evento',
+            expected_price = 50
+        )
+    ],
 ])
 class TestEntradasNoEstacionamento:        
     def test_entradas_no_estacionamento(self, parking_lot_entries):
