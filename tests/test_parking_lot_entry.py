@@ -31,6 +31,25 @@ class TestEntradasNoEstacionamento(TestCase):
         parking_access = self.parking_lot.register_parking_access(parking_access=payload)
 
         assert parking_access == payload
+    
+    def test_entrada_no_estacionamento_b(self):
+        payload1 = dict(
+            license_plate="HI139",
+            checkin='08:30:00',
+            checkout='08:56:00'
+        )
+        payload2 = dict(
+            license_plate="HI139",
+            checkin='08:30:00',
+            checkout='08:56:00'
+        )
+
+        self.parking_lot.register_parking_access(parking_access=payload1)
+
+        parking_accesses = self.parking_lot.register_parking_access(parking_access=payload2)
+
+        assert parking_accesses[0] == payload1
+        assert parking_accesses[1] == payload2
 
       
       
