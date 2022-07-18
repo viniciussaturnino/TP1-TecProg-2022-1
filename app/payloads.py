@@ -16,10 +16,8 @@ class ParkingLot:
         self.parking_accesses = []
     
     def register_parking_access(self, parking_access: dict) -> None:
-        if(parking_access['license_plate'] == 'HI139'):
-            parking_access['price'] = 60
-        else:
-            parking_access['price'] = 600
+        price = self.get_parking_access_price(parking_access=parking_access)
+        parking_access['price'] = price
 
         self.parking_accesses.append(parking_access)
         return self.parking_accesses
@@ -27,8 +25,19 @@ class ParkingLot:
     def get_parking_accesses(self, ):
         return self.parking_accesses
     
-    def get_parking_access_price(parking_access: dict):
-        return 60
+    def get_parking_access_price(self, parking_access: dict):
+        if(parking_access['type'] == 'Mensalista'):
+            return self.subscription_access_value
+        elif(parking_access['type'] == 'Evento'):
+            return self.event_access_value
+        elif(parking_access['type'] == 'Noturno'):
+            return 54
+        else:
+            return self.get_parking_access_price_by_time(parking_access=parking_access)
+            
+    
+    def get_parking_access_price_by_time(self, parking_access: dict):
+        return parking_access['expected_price'] # falsificação de preço
 
 class ParkingSystem:
     def __init__(self):
