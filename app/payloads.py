@@ -14,10 +14,12 @@ class ParkingLot:
         self.capacity = payload.get('capacity')
         self.contractor_percentage_revenue = payload.get('contractor_percentage_revenue')
         self.parking_accesses = []
+        self.total_parking_accesses_revenue = 0
     
     def register_parking_access(self, parking_access: dict) -> None:
         price = self.get_parking_access_price(parking_access=parking_access)
         parking_access['price'] = price
+        self.total_parking_accesses_revenue += price
 
         self.parking_accesses.append(parking_access)
         return self.parking_accesses
