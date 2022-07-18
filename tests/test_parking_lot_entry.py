@@ -11,6 +11,21 @@ from app.payloads import ParkingLot
             expected_price = 60
         )
     ],
+    [   dict(
+            license_plate="HI139",
+            checkin='08:30:00',
+            checkout='08:56:00',
+            type = None,
+            expected_price = 60
+        ), 
+        dict(
+            license_plate="G49NG",
+            checkin=None,
+            checkout=None,
+            type = 'Mensalista',
+            expected_price = 600
+        )
+    ],
     # [   dict(
     #         license_plate="HI139",
     #         checkin='08:30:00',
@@ -19,21 +34,8 @@ from app.payloads import ParkingLot
     #     ), 
     #     dict(
     #         license_plate="G49NG",
-    #         checkin='15:12:00',
-    #         checkout='16:00:00',
-    #         type = 'Mensalista'
-    #     )
-    # ],
-    # [   dict(
-    #         license_plate="HI139",
-    #         checkin='08:30:00',
-    #         checkout='08:56:00',
-    #         type = None
-    #     ), 
-    #     dict(
-    #         license_plate="G49NG",
-    #         checkin='15:12:00',
-    #         checkout='16:00:00',
+    #         checkin=None,
+    #         checkout=None,
     #         type = 'Mensalista'
     #     ),
     #     dict(
