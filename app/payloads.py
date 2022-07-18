@@ -61,6 +61,18 @@ class ParkingLot:
           not 'checkout' in parking_access
         ):
           raise DescricaoEmBrancoException(payload=parking_access, type='acesso')
+        
+        # Tratamento de exceção de dados inválidos
+        if (
+          type(parking_access.get('license_plate')) != str or
+          len(parking_access.get('license_plate')) != 5 or
+          type(parking_access.get('checkin')) != str or
+          len(parking_access.get('checkin')) != 8 or
+          type(parking_access.get('checkout')) != str or
+          len(parking_access.get('checkout')) != 8
+        ):
+          raise ValorAcessoInvalidoException(payload=parking_access, type='acesso')
+        
         price = self.get_parking_access_price(parking_access=parking_access)
         parking_access['price'] = price
         self.total_parking_accesses_revenue += price
