@@ -1,20 +1,43 @@
+from app.exceptions import DescricaoEmBrancoException
+
 class ParkingLot:
     def __init__(self, payload: dict):
-        self.name = payload.get('name')
-        self.fraction_value = payload.get('fraction_value')
-        self.fulltime_value = payload.get('fulltime_value')
-        self.daily_value_daytime = payload.get('daily_value_daytime')
-        self.daily_value_overnight = payload.get('daily_value_overnight')
-        self.daily_overnight_initial_hour = payload.get('daily_overnight_initial_hour')
-        self.daily_overnight_end_hour = payload.get('daily_overnight_end_hour')
-        self.subscription_access_value = payload.get('subscription_access_value')
-        self.event_access_value = payload.get('event_access_value')
-        self.opening_hour = payload.get('opening_hour')
-        self.closing_hour = payload.get('closing_hour')
-        self.capacity = payload.get('capacity')
-        self.contractor_percentage_revenue = payload.get('contractor_percentage_revenue')
-        self.parking_accesses = []
-        self.total_parking_accesses_revenue = 0
+        # Tratamento de exceção de dados em branco
+        if (
+          not 'name' in payload or 
+          not 'fraction_value' in payload or
+          not 'fulltime_value' in payload or
+          not 'daily_value_daytime' in payload or
+          not 'daily_value_overnight' in payload or
+          not 'daily_overnight_initial_hour' in payload or
+          not 'daily_overnight_end_hour' in payload or
+          not 'subscription_access_value' in payload or
+          not 'event_access_value' in payload or
+          not 'opening_hour' in payload or
+          not 'closing_hour' in payload or
+          not 'capacity' in payload or
+          not 'contractor_percentage_revenue' in payload
+        ):
+          print('blank')
+          raise DescricaoEmBrancoException(payload=payload, type='estacionamento')
+        
+        else:
+          print('not blank')          
+          self.name = payload.get('name')
+          self.fraction_value = payload.get('fraction_value')
+          self.fulltime_value = payload.get('fulltime_value')
+          self.daily_value_daytime = payload.get('daily_value_daytime')
+          self.daily_value_overnight = payload.get('daily_value_overnight')
+          self.daily_overnight_initial_hour = payload.get('daily_overnight_initial_hour')
+          self.daily_overnight_end_hour = payload.get('daily_overnight_end_hour')
+          self.subscription_access_value = payload.get('subscription_access_value')
+          self.event_access_value = payload.get('event_access_value')
+          self.opening_hour = payload.get('opening_hour')
+          self.closing_hour = payload.get('closing_hour')
+          self.capacity = payload.get('capacity')
+          self.contractor_percentage_revenue = payload.get('contractor_percentage_revenue')
+          self.parking_accesses = []
+          self.total_parking_accesses_revenue = 0
     
     def register_parking_access(self, parking_access: dict) -> None:
         price = self.get_parking_access_price(parking_access=parking_access)
