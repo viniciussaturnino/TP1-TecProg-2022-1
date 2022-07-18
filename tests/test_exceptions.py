@@ -45,4 +45,32 @@ class TesteExcecao(TestCase):
             contractor_percentage_revenue=-50.4
         ) # Dados inválidos(negativos e não inteiros)
         self.assertRaises(ValorAcessoInvalidoException, ParkingLot, invalid_payload)
+        
+    def test_criacao_de_entrada_com_dados_invalidos_no_estacionamento(self) -> None:
+        payload = dict(
+            name="Estac. 1",
+            fraction_value=30,
+            fulltime_value=15,
+            daily_value_daytime= 120,
+            daily_value_overnight=45,
+            daily_overnight_initial_hour=19,
+            daily_overnight_end_hour=8,
+            subscription_access_value=600,
+            event_access_value=50,
+            opening_hour=6,
+            closing_hour=22,
+            capacity=300,
+            contractor_percentage_revenue=50
+        )
+        self.parking_lot = ParkingLot(payload=payload)
+        
+        invalid_payload = dict(
+            license_plate= 0,
+            checkin='08:30:0021231',
+            checkout='08:56:00aaaa',
+            type = None,
+            expected_price = 60
+        ) # Dados inválidos (não string e tamanho inválido)
+        self.assertRaises(ValorAcessoInvalidoException, self.parking_lot.register_parking_access, invalid_payload)
+        
       
