@@ -8,7 +8,7 @@ from app.payloads import ParkingLot
             checkin='08:30:00',
             checkout='08:56:00',
             type = None,
-            expected_price = 60
+            expected_price = 30
         )
     ],
     [   dict(
@@ -16,7 +16,7 @@ from app.payloads import ParkingLot
             checkin='08:30:00',
             checkout='08:56:00',
             type = None,
-            expected_price = 60
+            expected_price = 30
         ), 
         dict(
             license_plate="G49NG",
@@ -31,7 +31,7 @@ from app.payloads import ParkingLot
             checkin='08:30:00',
             checkout='08:56:00',
             type = None,
-            expected_price = 60
+            expected_price = 30
         ), 
         dict(
             license_plate="G49NG",
@@ -60,7 +60,7 @@ from app.payloads import ParkingLot
             checkin="08:00:00",
             checkout="19:00:00",
             type = 'Noturno',
-            expected_price = 54
+            expected_price = 120
         ),
         dict(
             license_plate="AM31J",

@@ -67,11 +67,11 @@ class ParkingLot:
         # Tratamento de exceção de dados inválidos
         if (
           not isinstance(parking_access.get('license_plate'), str) or
-          len(parking_access.get('license_plate')) != 5 or
+          len(parking_access.get('license_plate'))!=5 or
           not isinstance(parking_access.get('checkin'), str) or
-          len(parking_access.get('checkin')) != 8 or
+          len(parking_access.get('checkin'))!=8 or
           not isinstance(parking_access.get('checkout'), str) or
-          len(parking_access.get('checkout')) != 8
+          len(parking_access.get('checkout'))!=8
         ):
           raise ValorAcessoInvalidoException(payload=parking_access, type='acesso')
         
