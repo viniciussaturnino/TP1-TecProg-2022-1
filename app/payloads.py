@@ -1,5 +1,7 @@
 from app.exceptions import DescricaoEmBrancoException, ValorAcessoInvalidoException
 
+from datetime import datetime
+
 class ParkingLot:
     def __init__(self, payload: dict):
         # Tratamento de exceção de dados em branco
@@ -84,21 +86,33 @@ class ParkingLot:
         return self.parking_accesses
     
     def get_parking_access_price(self, parking_access: dict):
-        if(parking_access['type'] == 'Mensalista'):
-            pass
-        elif(parking_access['type'] == 'Evento'):
-            pass
-        elif(parking_access['type'] == 'Noturno'):
-            pass
+        if parking_access['type'] is 'Mensalista':
+            return self.subscription_access_value
+        elif parking_access['type'] is 'Evento':
+            return self.event_access_value
         else:
-            if parking_access['expected_price'] == 234:
-              return 234
-            else:
-              return 102
-            
-    
+            return self.get_parking_access_price_by_time(parking_access=parking_access)
+             
     def get_parking_access_price_by_time(self, parking_access: dict):
-        return parking_access['expected_price'] # falsificação de preço
+        checkin = datetime.strptime(parking_access.get('checkin'), "%H:%M:%S")
+        checkout = datetime.strptime(parking_access.get('checkout'), "%H:%M:%S")
+
+        if checkin >= datetime.strptime(self.daily_overnight_initial_hour, "%H:%M:%S"
+        ) and checkout <= datetime.strptime(self.daily_overnight_end_hour, "%H:%M:%S"):
+            return self.daily_value_daytime*(self.daily_value_overnight/100)
+        
+        total_seconds = (checkout-checkin).seconds
+        hours = int(total_seconds/3600)
+
+        if hours >= 9:
+            return self.daily_value_daytime
+
+        
+        minutes = int((total_seconds - (hours*3600))/60)
+        hours_value = int(hours*((4*self.fraction_value)*(1 - (self.fulltime_value/100))))
+        minutes_value = int(minutes/15)*self.fraction_value
+
+        return hours_value+minutes_value
 
 class ParkingSystem:
     def __init__(self):
