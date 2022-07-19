@@ -3,35 +3,35 @@ class DescricaoEmBrancoException(Exception):
     blank_fields = []
     
     if type == 'acesso': # Dados em branco no fluxo de acesso
-      if not 'license_plate' in payload:
+      if 'license_plate' not in payload:
         blank_fields.append('placa do carro')
-      if not 'checkin' in payload:
+      if 'checkin' not in payload:
         blank_fields.append('hora de entrada')
-      if not 'checkout' in payload:
+      if 'checkout' not in payload:
         blank_fields.append('hora de saída')
     
     elif type == 'estacionamento': # Dados em branco no cadastro de estacionamento
-      if not 'name' in payload:
+      if 'name' not in payload:
         blank_fields.append('nome do estacionamento')
-      if not 'opening_hour' in payload or not 'closing_hour' in payload:
+      if 'opening_hour' not in payload or 'closing_hour' not in payload:
         blank_fields.append('horário de funcionamento')
-      if not 'fraction_value' in payload:
+      if 'fraction_value' not in payload:
         blank_fields.append('valor fração')
-      if not 'fulltime_value' in payload:
+      if 'fulltime_value' not in payload:
         blank_fields.append('valor hora cheia')
-      if not 'daily_value_daytime' in payload:
+      if 'daily_value_daytime' not in payload:
         blank_fields.append('valor diária diurna')
-      if not 'daily_value_overnight' in payload:
+      if 'daily_value_overnight' not in payload:
         blank_fields.append('valor diária noturna')
-      if not 'subscription_access_value' in payload:
+      if 'subscription_access_value' not in payload:
         blank_fields.append('valor acesso mensalista')
-      if not 'event_access_value' in payload:
+      if 'event_access_value' not in payload:
         blank_fields.append('valor acesso evento')
-      if not 'daily_overnight_initial_hour' in payload or not 'daily_overnight_end_hour' in payload:
+      if 'daily_overnight_initial_hour' not in payload or 'daily_overnight_end_hour' not in payload:
         blank_fields.append('horário da diária noturna')
-      if not 'contractor_percentage_revenue' in payload:
+      if 'contractor_percentage_revenue' not in payload:
         blank_fields.append('valor da porcentagem do contratante')
-      if not 'capacity' in payload:
+      if 'capacity' not in payload:
         blank_fields.append('capacidade do estacionamento')
 
     self.message = message
@@ -71,10 +71,10 @@ class ValorAcessoInvalidoException(Exception):
         if not isinstance(daily_value_overnight, int) or daily_value_overnight<0:
           invalid_fields.append('valor diária noturna')
         daily_overnight_initial_hour = payload.get('daily_overnight_initial_hour')
-        if not isinstance(daily_overnight_initial_hour, int) or daily_overnight_initial_hour<0:
+        if not isinstance(daily_overnight_initial_hour, str) or len(daily_overnight_initial_hour) != 8:
           invalid_fields.append('horário inicial da diária noturna')
         daily_overnight_end_hour = payload.get('daily_overnight_end_hour')
-        if not isinstance(daily_overnight_end_hour, int) or daily_overnight_end_hour<0:
+        if not isinstance(daily_overnight_end_hour, str) or len(daily_overnight_end_hour) != 8:
           invalid_fields.append('horário final da diária noturna')
         subscription_access_value = payload.get('subscription_access_value')
         if not isinstance(subscription_access_value, int) or subscription_access_value<0:
@@ -83,10 +83,10 @@ class ValorAcessoInvalidoException(Exception):
         if not isinstance(event_access_value, int) or event_access_value<0:
           invalid_fields.append('valor acesso evento')
         opening_hour = payload.get('opening_hour')
-        if not isinstance(opening_hour, int) or opening_hour<0:
+        if not isinstance(opening_hour, str) or len(opening_hour) != 8:
           invalid_fields.append('horário de abertura')
         closing_hour = payload.get('closing_hour')
-        if not isinstance(closing_hour, int) or closing_hour<0:
+        if not isinstance(closing_hour, str) or len(closing_hour) != 8:
           invalid_fields.append('horário de fechamento')
         capacity = payload.get('capacity')
         if not isinstance(capacity, int) or capacity<0:

@@ -15,12 +15,12 @@ class TesteExcecao(TestCase):
             fulltime_value=15,
             daily_value_daytime= 120,
             daily_value_overnight=45,
-            daily_overnight_initial_hour=19,
-            daily_overnight_end_hour=8,
+            daily_overnight_initial_hour="19:00:00",
+            daily_overnight_end_hour="08:00:00",
             subscription_access_value=600,
             event_access_value=50,
-            opening_hour=6,
-            closing_hour=22,
+            opening_hour="08:00:00",
+            closing_hour="19:00:00",
             capacity=300,
             contractor_percentage_revenue=50
         )
@@ -35,12 +35,12 @@ class TesteExcecao(TestCase):
             fulltime_value=-15,
             daily_value_daytime=- 120,
             daily_value_overnight=-45,
-            daily_overnight_initial_hour=19.3,
-            daily_overnight_end_hour=-8,
+            daily_overnight_initial_hour="0008:00:00",
+            daily_overnight_end_hour="19:00:000000",
             subscription_access_value=-600,
             event_access_value=-50,
-            opening_hour=-6,
-            closing_hour=-22,
+            opening_hour="0008:00:00",
+            closing_hour="19:00:00000",
             capacity=-300,
             contractor_percentage_revenue=-50.4
         ) # Dados inválidos(negativos e não inteiros)
@@ -53,23 +53,23 @@ class TesteExcecao(TestCase):
             fulltime_value=15,
             daily_value_daytime= 120,
             daily_value_overnight=45,
-            daily_overnight_initial_hour=19,
-            daily_overnight_end_hour=8,
+            daily_overnight_initial_hour="19:00:00",
+            daily_overnight_end_hour="08:00:00",
             subscription_access_value=600,
             event_access_value=50,
-            opening_hour=6,
-            closing_hour=22,
+            opening_hour="08:00:00",
+            closing_hour="19:00:00",
             capacity=300,
             contractor_percentage_revenue=50
         )
         self.parking_lot = ParkingLot(payload=payload)
         
         invalid_payload = dict(
-            license_plate= 0,
-            checkin='08:30:0021231',
-            checkout='08:56:00aaaa',
-            type = None,
-            expected_price = 60
+            license_plate="0",
+            checkin="08:30:0021231",
+            checkout="08:56:00aaaa",
+            type=None,
+            expected_price=60
         ) # Dados inválidos (não string e tamanho inválido)
         self.assertRaises(ValorAcessoInvalidoException, self.parking_lot.register_parking_access, invalid_payload)
         

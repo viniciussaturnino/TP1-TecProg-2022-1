@@ -4,36 +4,36 @@ class ParkingLot:
     def __init__(self, payload: dict):
         # Tratamento de exceção de dados em branco
         if (
-          not 'name' in payload or 
-          not 'fraction_value' in payload or
-          not 'fulltime_value' in payload or
-          not 'daily_value_daytime' in payload or
-          not 'daily_value_overnight' in payload or
-          not 'daily_overnight_initial_hour' in payload or
-          not 'daily_overnight_end_hour' in payload or
-          not 'subscription_access_value' in payload or
-          not 'event_access_value' in payload or
-          not 'opening_hour' in payload or
-          not 'closing_hour' in payload or
-          not 'capacity' in payload or
-          not 'contractor_percentage_revenue' in payload
+          'name' not in payload or 
+          'fraction_value' not in payload or
+          'fulltime_value' not in payload or
+          'daily_value_daytime' not in payload or
+          'daily_value_overnight' not in payload or
+          'daily_overnight_initial_hour' not in payload or
+          'daily_overnight_end_hour' not in payload or
+          'subscription_access_value' not in payload or
+          'event_access_value' not in payload or
+          'opening_hour' not in payload or
+          'closing_hour' not in payload or
+          'capacity' not in payload or
+          'contractor_percentage_revenue' not in payload
         ):
           raise DescricaoEmBrancoException(payload=payload, type='estacionamento')
         
         # Tratamento de exceção de dados inválidos
         if (
-          (type(payload.get('fraction_value')) != int or payload.get('fraction_value')<0) or
-          (type(payload.get('fulltime_value')) != int or payload.get('fulltime_value')<0) or
-          (type(payload.get('daily_value_daytime')) != int or payload.get('daily_value_daytime')<0) or
-          (type(payload.get('daily_value_overnight')) != int or payload.get('daily_value_overnight')<0) or
-          (type(payload.get('daily_overnight_initial_hour')) != int or payload.get('daily_overnight_initial_hour')<0) or
-          (type(payload.get('daily_overnight_end_hour')) != int or payload.get('daily_overnight_end_hour')<0) or
-          (type(payload.get('subscription_access_value')) != int or payload.get('subscription_access_value')<0) or
-          (type(payload.get('event_access_value')) != int or payload.get('event_access_value')<0) or
-          (type(payload.get('opening_hour')) != int or payload.get('opening_hour')<0) or
-          (type(payload.get('closing_hour')) != int or payload.get('closing_hour')<0) or
-          (type(payload.get('capacity')) != int or payload.get('capacity')<0) or
-          (type(payload.get('contractor_percentage_revenue')) != int or payload.get('contractor_percentage_revenue')<0)
+          (not isinstance(payload.get('fraction_value'), int) or payload.get('fraction_value')<0) or
+          (not isinstance(payload.get('fulltime_value'), int) or payload.get('fulltime_value')<0) or
+          (not isinstance(payload.get('daily_value_daytime'), int) or payload.get('daily_value_daytime')<0) or
+          (not isinstance(payload.get('daily_value_overnight'), int) or payload.get('daily_value_overnight')<0) or
+          (not isinstance(payload.get('daily_overnight_initial_hour'), str) or len(payload.get('daily_overnight_initial_hour'))!=8) or
+          (not isinstance(payload.get('daily_overnight_end_hour'), str) or len(payload.get('daily_overnight_end_hour'))!=8) or
+          (not isinstance(payload.get('subscription_access_value'), int) or payload.get('subscription_access_value')<0) or
+          (not isinstance(payload.get('event_access_value'), int) or payload.get('event_access_value')<0) or
+          (not isinstance(payload.get('opening_hour'), str) or len(payload.get('opening_hour'))!=8) or
+          (not isinstance(payload.get('closing_hour'), str) or len(payload.get('closing_hour'))!=8) or
+          (not isinstance(payload.get('capacity'), int) or payload.get('capacity')<0) or
+          (not isinstance(payload.get('contractor_percentage_revenue'), int) or payload.get('contractor_percentage_revenue')<0)
         ):
           raise ValorAcessoInvalidoException(payload=payload, type='estacionamento')
         
@@ -56,19 +56,19 @@ class ParkingLot:
     def register_parking_access(self, parking_access: dict) -> None:
         # Tratamento de exceção de dados em branco
         if (
-          not 'license_plate' in parking_access or 
-          not 'checkin' in parking_access or 
-          not 'checkout' in parking_access
+          'license_plate' not in parking_access or 
+          'checkin' not in parking_access or 
+          'checkout' not in parking_access
         ):
           raise DescricaoEmBrancoException(payload=parking_access, type='acesso')
         
         # Tratamento de exceção de dados inválidos
         if (
-          type(parking_access.get('license_plate')) != str or
+          not isinstance(parking_access.get('license_plate'), str) or
           len(parking_access.get('license_plate')) != 5 or
-          type(parking_access.get('checkin')) != str or
+          not isinstance(parking_access.get('checkin'), str) or
           len(parking_access.get('checkin')) != 8 or
-          type(parking_access.get('checkout')) != str or
+          not isinstance(parking_access.get('checkout'), str) or
           len(parking_access.get('checkout')) != 8
         ):
           raise ValorAcessoInvalidoException(payload=parking_access, type='acesso')
