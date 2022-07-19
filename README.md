@@ -9,3 +9,10 @@
 | 180129058  |  [Paulo Victor da Silva](https://github.com/twistershark) |
 | 180138545  |  [Thiago Mesquita Peres Nunes de Carvalho](https://github.com/thiagompc) |
 | 180132245  |  [Vinicius de Sousa Saturnino](https://github.com/viniciussaturnino) |
+
+## Instruções para execução dos testes
+1. Ter o Python3 instalado na máquina.
+2. Clonar o projeto para sua máquina.
+3. Acessar a pasta do projeto clonado com o terminal.
+4. Executar o seguinte comando no terminal para instalar as dependências do projeto: `pip install -r requirements.txt`
+5. Feito isso, você poderá executar a suíte de testes com o seguinte comando: `pytest -v`
