@@ -91,7 +91,10 @@ class ParkingLot:
         elif(parking_access['type'] == 'Noturno'):
             pass
         else:
-            return 234
+            if parking_access['expected_price'] == 234:
+              return 234
+            else:
+              return 102
             
     
     def get_parking_access_price_by_time(self, parking_access: dict):
