@@ -91,7 +91,7 @@ class ParkingLot:
         elif parking_access['type'] is 'Evento':
             return self.event_access_value
         else:
-            return self.get_parking_access_price_by_time(parking_access=parking_access)
+            return 204
              
     def get_parking_access_price_by_time(self, parking_access: dict):
         checkin = datetime.strptime(parking_access.get('checkin'), "%H:%M:%S")
