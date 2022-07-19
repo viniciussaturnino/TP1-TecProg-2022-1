@@ -20,8 +20,8 @@ from app.payloads import ParkingLot
         ), 
         dict(
             license_plate="G49NG",
-            checkin=None,
-            checkout=None,
+            checkin="08:00:00",
+            checkout="19:00:00",
             type = 'Mensalista',
             expected_price = 600
         )
@@ -35,8 +35,8 @@ from app.payloads import ParkingLot
         ), 
         dict(
             license_plate="G49NG",
-            checkin=None,
-            checkout=None,
+            checkin="08:00:00",
+            checkout="19:00:00",
             type = 'Mensalista',
             expected_price = 600
         ),
@@ -57,15 +57,15 @@ from app.payloads import ParkingLot
         ), 
         dict(
             license_plate="RM3A9",
-            checkin=None,
-            checkout=None,
+            checkin="08:00:00",
+            checkout="19:00:00",
             type = 'Noturno',
             expected_price = 54
         ),
         dict(
             license_plate="AM31J",
-            checkin=None,
-            checkout=None,
+            checkin="08:00:00",
+            checkout="19:00:00",
             type = 'Evento',
             expected_price = 50
         )
@@ -79,12 +79,12 @@ class TestEntradasNoEstacionamento:
             fulltime_value=15,
             daily_value_daytime= 120,
             daily_value_overnight=45,
-            daily_overnight_initial_hour=19,
-            daily_overnight_end_hour=8,
+            daily_overnight_initial_hour="19:00:00",
+            daily_overnight_end_hour="08:00:00",
             subscription_access_value=600,
             event_access_value=50,
-            opening_hour=6,
-            closing_hour=22,
+            opening_hour="08:00:00",
+            closing_hour="19:00:00",
             capacity=300,
             contractor_percentage_revenue=50
         )
