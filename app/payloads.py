@@ -78,20 +78,20 @@ class ParkingLot:
         self.total_parking_accesses_revenue += price
 
         self.parking_accesses.append(parking_access)
-        return self.parking_accesses
+        return price
 
-    def get_parking_accesses(self, ):
+    def get_parking_accesses(self):
         return self.parking_accesses
     
     def get_parking_access_price(self, parking_access: dict):
         if(parking_access['type'] == 'Mensalista'):
-            return self.subscription_access_value
+            pass
         elif(parking_access['type'] == 'Evento'):
-            return self.event_access_value
+            pass
         elif(parking_access['type'] == 'Noturno'):
-            return 54
+            pass
         else:
-            return self.get_parking_access_price_by_time(parking_access=parking_access)
+            return 234
             
     
     def get_parking_access_price_by_time(self, parking_access: dict):
