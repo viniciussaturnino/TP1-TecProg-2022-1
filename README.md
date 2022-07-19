@@ -10,7 +10,7 @@
 | 180138545  |  [Thiago Mesquita Peres Nunes de Carvalho](https://github.com/thiagompc) |
 | 180132245  |  [Vinicius de Sousa Saturnino](https://github.com/viniciussaturnino) |
 
-## Instruções para execução do teste
+## Instruções para execução dos testes
 1. Ter o Python3 instalado na máquina.
 2. Clonar o projeto para sua máquina.
 3. Acessar a pasta do projeto clonado com o terminal.
