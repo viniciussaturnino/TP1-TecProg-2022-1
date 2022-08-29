@@ -65,14 +65,7 @@ class ParkingLot:
           raise DescricaoEmBrancoException(payload=parking_access, type='acesso')
         
         # Tratamento de exceção de dados inválidos
-        if (
-          not isinstance(parking_access.get('license_plate'), str) or
-          len(parking_access.get('license_plate'))!=5 or
-          not isinstance(parking_access.get('checkin'), str) or
-          len(parking_access.get('checkin'))!=8 or
-          not isinstance(parking_access.get('checkout'), str) or
-          len(parking_access.get('checkout'))!=8
-        ):
+        if not self.parking_access_data_is_valid(parking_access=parking_access):
           raise ValorAcessoInvalidoException(payload=parking_access, type='acesso')
         
         price = self.get_parking_access_price(parking_access=parking_access)
@@ -82,13 +75,26 @@ class ParkingLot:
         self.parking_accesses.append(parking_access)
         return price
 
+    def parking_access_data_is_valid(self, parking_access: dict) -> bool:
+        for key, value in parking_access.items():
+            if not isinstance(key, str):
+                print("IS NOT STR")
+                return False
+            if key == "license_plate" and len(value) != 5:
+                print("LEN < 5")
+                return False
+            if key in ["checkin", "checkout"] and len(value) != 8:
+                print("LEN < 8")
+                return False
+        return True
+
     def get_parking_accesses(self):
         return self.parking_accesses
     
     def get_parking_access_price(self, parking_access: dict):
-        if parking_access['type'] is 'Mensalista':
+        if parking_access['type'] == 'Mensalista':
             return self.subscription_access_value
-        elif parking_access['type'] is 'Evento':
+        elif parking_access['type'] == 'Evento':
             return self.event_access_value
         else:
             return self.get_parking_access_price_by_time(parking_access=parking_access)
