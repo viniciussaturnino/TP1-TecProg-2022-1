@@ -2,91 +2,130 @@ from app.exceptions import DescricaoEmBrancoException, ValorAcessoInvalidoExcept
 
 from datetime import datetime
 
-class ParkingLot:
-    def __init__(self, payload: dict):
-        # Tratamento de exceção de dados em branco
-        if (
-          'name' not in payload or 
-          'fraction_value' not in payload or
-          'fulltime_value' not in payload or
-          'daily_value_daytime' not in payload or
-          'daily_value_overnight' not in payload or
-          'daily_overnight_initial_hour' not in payload or
-          'daily_overnight_end_hour' not in payload or
-          'subscription_access_value' not in payload or
-          'event_access_value' not in payload or
-          'opening_hour' not in payload or
-          'closing_hour' not in payload or
-          'capacity' not in payload or
-          'contractor_percentage_revenue' not in payload
-        ):
-          raise DescricaoEmBrancoException(payload=payload, type='estacionamento')
-        
-        # Tratamento de exceção de dados inválidos
-        if (
-          (not isinstance(payload.get('fraction_value'), int) or payload.get('fraction_value')<0) or
-          (not isinstance(payload.get('fulltime_value'), int) or payload.get('fulltime_value')<0) or
-          (not isinstance(payload.get('daily_value_daytime'), int) or payload.get('daily_value_daytime')<0) or
-          (not isinstance(payload.get('daily_value_overnight'), int) or payload.get('daily_value_overnight')<0) or
-          (not isinstance(payload.get('daily_overnight_initial_hour'), str) or len(payload.get('daily_overnight_initial_hour'))!=8) or
-          (not isinstance(payload.get('daily_overnight_end_hour'), str) or len(payload.get('daily_overnight_end_hour'))!=8) or
-          (not isinstance(payload.get('subscription_access_value'), int) or payload.get('subscription_access_value')<0) or
-          (not isinstance(payload.get('event_access_value'), int) or payload.get('event_access_value')<0) or
-          (not isinstance(payload.get('opening_hour'), str) or len(payload.get('opening_hour'))!=8) or
-          (not isinstance(payload.get('closing_hour'), str) or len(payload.get('closing_hour'))!=8) or
-          (not isinstance(payload.get('capacity'), int) or payload.get('capacity')<0) or
-          (not isinstance(payload.get('contractor_percentage_revenue'), int) or payload.get('contractor_percentage_revenue')<0)
-        ):
-          raise ValorAcessoInvalidoException(payload=payload, type='estacionamento')
-        
-        self.name = payload.get('name')
-        self.fraction_value = payload.get('fraction_value')
-        self.fulltime_value = payload.get('fulltime_value')
-        self.daily_value_daytime = payload.get('daily_value_daytime')
-        self.daily_value_overnight = payload.get('daily_value_overnight')
-        self.daily_overnight_initial_hour = payload.get('daily_overnight_initial_hour')
-        self.daily_overnight_end_hour = payload.get('daily_overnight_end_hour')
-        self.subscription_access_value = payload.get('subscription_access_value')
-        self.event_access_value = payload.get('event_access_value')
-        self.opening_hour = payload.get('opening_hour')
-        self.closing_hour = payload.get('closing_hour')
-        self.capacity = payload.get('capacity')
-        self.contractor_percentage_revenue = payload.get('contractor_percentage_revenue')
-        self.parking_accesses = []
-        self.total_parking_accesses_revenue = 0
+class PayloadVariable:
+    def __init__(self, value, required=True, custom_validation=None):
+        self.value = value
+        self.required = required
+        self.custom_validation = custom_validation
+
+
+class BasePayload:
+    def __setattr__(self, name: str, variable: PayloadVariable):
+        if not isinstance(variable, PayloadVariable):
+            raise Exception('Value is not a PayloadVariable')
+
+        if variable.required:
+            if not variable.value:
+                raise DescricaoEmBrancoException(name)
+
+        if variable.custom_validation:
+            variable.custom_validation(variable.value, name)
+
+        super(BasePayload, self).__setattr__(name, variable.value)
+
+
+class ParkingLot(BasePayload):
+    def __init__(self, payload: dict) -> None:
+        self.name = PayloadVariable(payload.get("name"))
+        self.fraction_value = PayloadVariable(
+            value=payload.get("fraction_value"),
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+        self.fulltime_value = PayloadVariable(
+            value=payload.get("fulltime_value"),
+            required=False,
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+        self.daily_value_daytime = PayloadVariable(
+            value=payload.get("daily_value_daytime"),
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+        self.daily_value_overnight = PayloadVariable(
+            value=payload.get("daily_value_overnight"),
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+        self.daily_overnight_initial_hour = PayloadVariable(
+            value=payload.get("daily_overnight_initial_hour"),
+            custom_validation=self.validate_if_variable_is_a_valid_str
+        )
+        self.daily_overnight_end_hour = PayloadVariable(
+            value=payload.get("daily_overnight_end_hour"),
+            custom_validation=self.validate_if_variable_is_a_valid_str
+        )
+        self.subscription_access_value = PayloadVariable(
+            value=payload.get("subscription_access_value"),
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+        self.event_access_value = PayloadVariable(
+            value=payload.get("event_access_value"),
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+        self.opening_hour = PayloadVariable(
+            value=payload.get("opening_hour"),
+            custom_validation=self.validate_if_variable_is_a_valid_str
+        )
+        self.closing_hour = PayloadVariable(
+            value=payload.get("closing_hour"),
+            custom_validation=self.validate_if_variable_is_a_valid_str
+        )
+        self.capacity = PayloadVariable(
+            value=payload.get("capacity"),
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+        self.contractor_percentage_revenue = PayloadVariable(
+            value=payload.get("contractor_percentage_revenue"),
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+        self.parking_accesses = PayloadVariable(
+            value=[],
+            required=False
+        )
+        self.total_parking_accesses_revenue = PayloadVariable(
+            value=0,
+            required=False,
+            custom_validation=self.validate_if_variable_is_a_valid_int
+        )
+
+    def to_dict(self):
+        return vars(self)
+
+    def validate_if_variable_is_a_valid_str(self, variable, name):
+        if not (isinstance(variable, str) and len(variable) == 8):
+            raise ValorAcessoInvalidoException(name=name)
+
+    def validate_if_variable_is_a_valid_int(self, variable, field):
+        if not (isinstance(variable, int) and variable >= 0):
+            raise ValorAcessoInvalidoException(field=field)
     
-    def register_parking_access(self, parking_access: dict) -> None:
+    def register_parking_access(self, parking_access: dict):
         # Tratamento de exceção de dados em branco
-        if (
-          'license_plate' not in parking_access or 
-          'checkin' not in parking_access or 
-          'checkout' not in parking_access
-        ):
-          raise DescricaoEmBrancoException(payload=parking_access, type='acesso')
+        keys = ["license_plate", "checkin", "checkout"]
+        for key in keys:
+            if key not in parking_access.keys():
+                raise DescricaoEmBrancoException(parameter_name=key)
         
         # Tratamento de exceção de dados inválidos
-        if not self.parking_access_data_is_valid(parking_access=parking_access):
-          raise ValorAcessoInvalidoException(payload=parking_access, type='acesso')
+        self.parking_access_data_is_valid(parking_access=parking_access)
         
         price = self.get_parking_access_price(parking_access=parking_access)
         parking_access['price'] = price
-        self.total_parking_accesses_revenue += price
+        self.total_parking_accesses_revenue = PayloadVariable(
+            value=(self.total_parking_accesses_revenue + price),
+            required=False,
+            custom_validation=self.validate_if_variable_is_a_valid_int    
+        )
 
         self.parking_accesses.append(parking_access)
         return price
 
-    def parking_access_data_is_valid(self, parking_access: dict) -> bool:
+    def parking_access_data_is_valid(self, parking_access: dict):
         for key, value in parking_access.items():
             if not isinstance(key, str):
-                print("IS NOT STR")
-                return False
+                raise ValorAcessoInvalidoException(field=key)
             if key == "license_plate" and len(value) != 5:
-                print("LEN < 5")
-                return False
+                raise ValorAcessoInvalidoException(field=key)
             if key in ["checkin", "checkout"] and len(value) != 8:
-                print("LEN < 8")
-                return False
-        return True
+                raise ValorAcessoInvalidoException(field=key)
 
     def get_parking_accesses(self):
         return self.parking_accesses
@@ -120,9 +159,12 @@ class ParkingLot:
 
         return hours_value+minutes_value
 
-class ParkingSystem:
+class ParkingSystem(BasePayload):
     def __init__(self):
-        self.parking_lots = []
+        self.parking_lots = PayloadVariable(value=[], required=False)
+
+    def to_dict(self):
+        return vars(self)
 
     def register_parking_lot(self, parking_lot: ParkingLot):
         self.parking_lots.append(parking_lot)
