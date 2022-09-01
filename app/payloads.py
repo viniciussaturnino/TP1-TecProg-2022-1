@@ -2,6 +2,8 @@ from app.exceptions import DescricaoEmBrancoException, ValorAcessoInvalidoExcept
 
 from datetime import datetime
 
+from app.parking_access import ParkingAccess
+
 class PayloadVariable:
     def __init__(self, value, required=True, custom_validation=None):
         self.value = value
@@ -85,6 +87,10 @@ class ParkingLot(BasePayload):
             required=False,
             custom_validation=self.validate_if_variable_is_a_valid_int
         )
+        self.parking_access = PayloadVariable(
+          value=ParkingAccess(),
+          required=False
+        )
 
     def to_dict(self):
         return vars(self)
@@ -136,28 +142,8 @@ class ParkingLot(BasePayload):
         elif parking_access['type'] == 'Evento':
             return self.event_access_value
         else:
-            return self.get_parking_access_price_by_time(parking_access=parking_access)
+            return self.parking_access.get_price_by_time(parking_access=parking_access, parking_lot=self)
              
-    def get_parking_access_price_by_time(self, parking_access: dict):
-        checkin = datetime.strptime(parking_access.get('checkin'), "%H:%M:%S")
-        checkout = datetime.strptime(parking_access.get('checkout'), "%H:%M:%S")
-
-        if checkin >= datetime.strptime(self.daily_overnight_initial_hour, "%H:%M:%S"
-        ) and checkout <= datetime.strptime(self.daily_overnight_end_hour, "%H:%M:%S"):
-            return self.daily_value_daytime*(self.daily_value_overnight/100)
-        
-        total_seconds = (checkout-checkin).seconds
-        hours = int(total_seconds/3600)
-
-        if hours >= 9:
-            return self.daily_value_daytime
-
-        
-        minutes = int((total_seconds - (hours*3600))/60)
-        hours_value = int(hours*((4*self.fraction_value)*(1 - (self.fulltime_value/100))))
-        minutes_value = int(minutes/15)*self.fraction_value
-
-        return hours_value+minutes_value
 
 class ParkingSystem(BasePayload):
     def __init__(self):
