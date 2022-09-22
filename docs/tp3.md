@@ -18,9 +18,11 @@ Esta característica possui relação com o mau-cheiro comentários, visto que e
 
 ## 1.3 Operação de refatoração
 
-Como operação de refatoração para esta característica, o README do projeto foi refatorado para uma melhor explicação sobre o projeto, como pode ser visto na imagem abaixo:
+Como operação de refatoração para esta característica, o README do projeto foi refatorado para uma melhor explicação sobre o projeto, como pode ser visto nas imagens abaixo:
 
-![]()
+![Boa Documentação 1](./assets/boa-documentacao-1.png)
+![Boa Documentação 2](./assets/boa-documentacao-2.png)
+![Boa Documentação 3](./assets/boa-documentacao-3.png)
 
 # 2. Ausência de duplicidades
 
@@ -60,6 +62,14 @@ Uma exemplo de operação de refatoração que evidencia o ponto da simplicidade
 
 ## 4.1 Descrição
 
+Escrever código de maneira idiomática significa respeitar as regras e convenções da linguagem que está sendo utilizada. Além disso, também é necessário nomear as estruturas e variáveis do código de maneira breve e clara, passando o entendimento para quem estiver lendo.
+
 ## 4.2 Relação com mau-cheiros
 
+Um mau-cheiro relacionado à falta desta técnica é a Generalidade especulativa, pois um código não escrito de maneira idiomática se torna um projeto difícil de entender, e, consequentemente, um projeto difícil de manter.
+
 ## 4.3 Operação de refatoração
+
+![Idiomático](./assets/idiomatico.png)
+
+Nessa refatoração onde removemos os números mágicos, criamos variáveis seguindo as regras e convenções da linguagem Python, além de nomeá-las de forma breve e clara, deixando dessa maneira, um código fácil de entender e manter.
