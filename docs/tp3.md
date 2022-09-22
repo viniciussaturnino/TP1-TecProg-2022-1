@@ -4,7 +4,7 @@ Este documento tem como objetivo realizar a entrega do TP3, documentando os requ
 2. Ausência de duplicidades;
 3. Simplicidade;
 4. Idiomático;
-5.
+5. Modularidade (baixo acoplamento e alta coesão).
 
 # 1. Boa documentação
 
@@ -73,3 +73,21 @@ Um mau-cheiro relacionado à falta desta técnica é a Generalidade especulativa
 ![Idiomático](./assets/idiomatico.png)
 
 Nessa refatoração onde removemos os números mágicos, criamos variáveis seguindo as regras e convenções da linguagem Python, além de nomeá-las de forma breve e clara, deixando dessa maneira, um código fácil de entender e manter.
+
+# 5. Modularidade (baixo acoplamento e alta coesão)
+
+## 5.1 Descrição
+
+Esta característica visa evitar classes com múltiplas responsabilidades, e que possuem muito acoplamento entre si, melhorando a estrutura do código, a coesão e o acoplamento.
+## 5.2 Relação com mau-cheiros
+
+O mau-cheiro que mais se relaciona com esta característica é o de classe inchada, que é um mau-cheiro que indica uma coestão baixa, evidenciando que uma classe está com mais responsabilidades do que deveria.
+
+## 5.3 Operação de refatoração
+
+Uma operação de refatoração feita no projeto que visa esta característica, pode ser vista abaixo:
+
+![Modularidade 1](./assets/modularidade-1.png)
+![Modularidade 2](./assets/modularidade-2.png)
+
+Na operação acima, o método ```get_parking_access_price_by_time``` estava dentro da classe ```payloads```, dando a esta classe uma responsabilidade que não deveria ser dela, e com isso, foi criada uma nova classe com um escopo que se adequa a esta função.
