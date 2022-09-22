@@ -2,6 +2,8 @@
 
 **Disciplina**: Técnicas de Programação em Plataformas Emergentes <br>
 
+## [Documentação TP3](https://github.com/viniciussaturnino/TP1-TecProg-2022-1/blob/main/docs/tp3.md)
+
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
