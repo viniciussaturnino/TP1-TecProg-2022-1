@@ -44,9 +44,17 @@ Nesta refatoração, foi identificado uma duplicação de código, que dificulta
 
 ## 3.1 Descrição
 
+Uma das boas práticas na programação consiste em construir um código legível e bem descritivo. E quando uma classe, por exemplo, acaba tento muitas responsabilidades, o entendimento acaba sendo prejudicado e ela acaba tornando-se, muitas vezes em uma classe com pouca ou nenhuma simplicidade.
+
 ## 3.2 Relação com mau-cheiros
 
+A característica ou mau cheiro que foi identificado no projeto e onde a simplicidade poderia ser aplicada é a característica de Classe Inchada ou Grande.
+
 ## 3.3 Operação de refatoração
+
+Uma exemplo de operação de refatoração que evidencia o ponto da simplicidade está presente em um dos Pull Requests feitos no projeto. No PR em questão é possível perceber abaixo o quanto a classe tinha muitas operações e responsabilidades:
+
+![Pull Request](./assets/simplicidade.png)
 
 # 4. Idiomático
 
