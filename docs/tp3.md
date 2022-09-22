@@ -1,86 +1,57 @@
-# Introdução
+Este documento tem como objetivo realizar a entrega do TP3, documentando os requisitos solicitados no enunciado. As 5 características escolhidas pelo grupo foram:
 
-Essa é uma aplicação com o objetivo de ser utilizada para o controle de estacionamento de estabelecimentos. Com o intuito de desenvolver de forma rápida e com qualidade, o grupo decidiu construir o software utilizando Python por ser familiar para os membros. Com os conhecimentos adquiridos durante o decorrer da disciplina, conseguimos alcançar um bom resultado, seguindo boas práticas e com uma base sólida para implementação de novas funcionalidades no futuro.
+1. Boa documentação;
+2. Ausência de duplicidades;
+3. Simplicidade;
+4. Idiomático;
+5.
 
-## Alunos
-|Matrícula | Aluno |
-| -- | -- |
-| 180106821  |  [Mateus Gomes do Nascimento](https://github.com/matgomes21) |
-| 180129058  |  [Paulo Victor da Silva](https://github.com/twistershark) |
-| 180138545  |  [Thiago Mesquita Peres Nunes de Carvalho](https://github.com/thiagompc) |
-| 180132245  |  [Vinicius de Sousa Saturnino](https://github.com/viniciussaturnino) |
+# 1. Boa documentação
 
-# Características
+## 1.1 Descrição
 
-O sistema de gerenciamento tem como premissa ajudar o estabelecimento a ter uma visão da entrada de dinheiro, quantidade de veículos que estão transitando pelo estacionamento, além de ajudar o mesmo a tomar melhores decisões no futuro.
+Esta característica possui como efeito no código, a melhoria na claridade do projeto e do código, visto que uma boa documentação serve como guia para os desenvolvedores e interessados no sistema.
 
-Através da classe de estacionamento(ParkingLot), o responsável tem acesso as informações de entrada e saída do veículo no estacionamento, além de permitir a definição dos custos e taxas relacionadas ao estacionamento.
+## 1.2 Relação com mau-cheiros
 
-Já a classe de acesso ao estacionamento(ParkingAccess), fornece o valor de entrada baseado no período em que o veículo esteve presente no estacionamento.
+Esta característica possui relação com o mau-cheiro comentários, visto que este mau-cheiro diz respeito em como o código explica sobre si mesmo, que é justamente o objetivo de uma boa documentação, explicar o código.
 
+## 1.3 Operação de refatoração
 
-# Requisitos para utilização: 
+Como operação de refatoração para esta característica, o README do projeto foi refatorado para uma melhor explicação sobre o projeto, como pode ser visto na imagem abaixo:
 
-1. Ter o Python3 instalado na máquina.
-2. Clonar o projeto para sua máquina.
-3. Acessar a pasta do projeto clonado com o terminal.
-4. Executar o seguinte comando no terminal para instalar as dependências do projeto: `pip install -r requirements.txt`
+![]()
 
-# Descrição de classes
+# 2. Ausência de duplicidades
 
-## ParkingLot (Atributos)
+## 2.1 Descrição
 
+Esta característica visa a diminuição de código duplicado, duplicidade esta também conhecida como boilerplate, e os efeitos dessa característica no código é a melhora na manutenibilidade do mesmo, visto que as duplicidades são centralizadas em um lugar só, e também melhora a visibilidade, visto que o código fica mais compactado.
 
-| Nome                          | Tipo   | Obrigatório | Descrição                               | Exemplo  |
-|-------------------------------|--------|-------------|-----------------------------------------|----------|
-| name                          | String | S           | Nome do estabelecimento                 | Estac. 1 |
-| fraction_value                | Number | S           | Valor da fração do tempo                | 30       |
-| fulltime_value                | Number | N           | Valor da hora cheia                     | 15       |
-| daily_value_daytime           | Number | S           | Valor da diária                         | 120      |
-| daily_value_overnight         | Number | S           | Valor da diária noturna                 | 45       |
-| daily_overnight_initial_hour  | String | S           | Horário de início do período noturno    | 19:00:00 |
-| daily_overnight_end_hour      | String | S           | Horário de término do período noturno   | 08:00:00 |
-| subscription_access_value     | Number | S           | Valor da mensalidade                    | 600      |
-| event_access_value            | Number | S           | Valor de acesso durante evento          | 50       |
-| opening_hour                  | String | S           | Horário de abertura                     | 08:00:00 |
-| closing_hour                  | String | S           | Horário de término                      | 19:00:00 |
-| capacity                      | Number | S           | Capacidade máxima do estacionamento     | 300      |
-| contractor_percentage_revenue | Number | S           | Porcentagem de lucro do estabelecimento | 50       |
+## 2.2 Relação com mau-cheiros
 
-## ParkingLot (Métodos)
+Esta característica tem completa relação com o mau-cheiro código duplicado, já que os dois visam o mesmo problema, que é trechos de código iguais em lugares distindos, que poderiam muito bem ser centralizados em uma única função, classe, objeto ou outra estrutura de programação.
 
-| Nome                                | Atributos       | Descrição                                                                       |
-|-------------------------------------|-----------------|---------------------------------------------------------------------------------|
-| to_dict                             | this            | Transforma dado em dicionário                                                   |
-| validate_if_variable_is_a_valid_str | variable, name  | Verifica se a variável é uma string e se o tamanho dela é igual a 8 caracteres. |
-| validate_if_variable_is_a_valid_int | variable, field | Verifica se a variável é um número inteiro e se o seu valor é maior que 0       |
-| register_parking_access             | parking_access  | Cadastra novo estacionamento no sistema                                         |
-| parking_access_data_is_valid        | parking_access  | Valida os dados relacionados ao estabelecimento                                 |
-| get_parking_accesses                | this            | Retorna todas as entradas no estacionamento                                     |
-| get_parking_access_price            | parking_access  | Retorna o valor de uma entrada no estacionamento                                |
+## 2.3 Operação de refatoração
 
----
+Uma refatoração que visa essa característica pode ser vista a seguir:
 
-## ParkingSystem (Atributos)
+![Ausência de duplicidade](./assets/ausencia-de-duplicidades.png)
 
+Nesta refatoração, foi identificado uma duplicação de código, que dificulta muito a manutenção desta funcionalidade, visto que se for ter uma alteração deve-se alterar a mesma coisa em vários pontos, e com isso, foi criada uma função centralizando a funcionalidade e eliminando a duplicidade.
 
-| Nome                          | Tipo   | Obrigatório | Descrição                               |
-|-------------------------------|--------|-------------|-----------------------------------------|
-| parking_lots                  | Dicionário | S       | Dados do estabelecimento            |
+# 3. Simplicidade
 
+## 3.1 Descrição
 
-## ParkingSystem (Métodos)
+## 3.2 Relação com mau-cheiros
 
-| Nome                                | Atributos       | Descrição                                                                       |
-|-------------------------------------|-----------------|---------------------------------------------------------------------------------|
-| to_dict                             | this            | Transforma dado em dicionário                                                   |
-| register_parking_lot | parking_lot  | Adiciona um novo estacionamento ao sistema. |
+## 3.3 Operação de refatoração
 
----
+# 4. Idiomático
 
-## ParkingAccess (Métodos)
+## 4.1 Descrição
 
-| Nome                                | Atributos       | Descrição                                                                       |
-|-------------------------------------|-----------------|---------------------------------------------------------------------------------|
-| to_dict                             | this            | Transforma dado em dicionário                                                   |
-| get_price_by_time | parking_access, parking_lot  | Calcula o valor de uma entrada no estacionamento através do horário de entrada e saída. |
+## 4.2 Relação com mau-cheiros
+
+## 4.3 Operação de refatoração
