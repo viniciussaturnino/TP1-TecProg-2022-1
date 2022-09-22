@@ -1,4 +1,4 @@
-from datetime import datetime
+from app.utils import get_formated_datetime
 
 # Constantes
 PERCENT_CONVERSION_VALUE = 100
@@ -12,11 +12,11 @@ FRACTION_IN_MINUTES = 15
 class ParkingAccess:
   
     def get_price_by_time(self, parking_access: dict, parking_lot: object):
-          checkin = datetime.strptime(parking_access.get('checkin'), "%H:%M:%S")
-          checkout = datetime.strptime(parking_access.get('checkout'), "%H:%M:%S")
+          checkin = get_formated_datetime(date=parking_access.get('checkin'))
+          checkout = get_formated_datetime(date=parking_access.get('checkout'))
 
-          if checkin >= datetime.strptime(parking_lot.daily_overnight_initial_hour, "%H:%M:%S"
-          ) and checkout <= datetime.strptime(parking_lot.daily_overnight_end_hour, "%H:%M:%S"):
+          if checkin >= get_formated_datetime(date=parking_lot.daily_overnight_initial_hour
+          ) and checkout <= get_formated_datetime(date=parking_lot.daily_overnight_end_hour):
               return parking_lot.daily_value_daytime*(parking_lot.daily_value_overnight/PERCENT_CONVERSION_VALUE)
           
           total_seconds = (checkout-checkin).seconds
